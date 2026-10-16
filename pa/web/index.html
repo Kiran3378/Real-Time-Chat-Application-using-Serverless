@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101522">
+    <title>Relay — Real-time chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Relay home">
+          <span class="brand-mark" aria-hidden="true">r</span>
+          <span>relay<span class="brand-period">.</span></span>
+        </a>
+        <div class="topbar-note"><span class="secure-dot"></span> Serverless, in sync</div>
+      </header>
+
+      <section class="welcome">
+        <p class="eyebrow">A little closer, in real time</p>
+        <h1>Good conversations<br><span>travel fast.</span></h1>
+        <p class="welcome-copy">A quiet corner of the internet for your team, friends, and favorite ideas.</p>
+      </section>
+
+      <section class="chat-card" aria-label="Chat application">
+        <aside class="sidebar">
+          <div class="sidebar-heading">
+            <div>
+              <p class="eyebrow">Your space</p>
+              <h2>Join a room</h2>
+            </div>
+            <span class="room-icon" aria-hidden="true">↗</span>
+          </div>
+
+          <form id="join-form" class="join-form">
+            <label for="display-name">Your name</label>
+            <input id="display-name" name="username" type="text" maxlength="32" placeholder="e.g. Alex" autocomplete="nickname" required>
+
+            <label for="room-name">Room name</label>
+            <div class="room-input-wrap">
+              <span aria-hidden="true">#</span>
+              <input id="room-name" name="roomId" type="text" maxlength="64" pattern="[A-Za-z0-9_-]+" placeholder="the-lounge" required>
+            </div>
+
+            <button class="button button-primary" type="submit">
+              <span>Join conversation</span><span aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <div class="connection-status" id="connection-status" data-state="offline" role="status" aria-live="polite">
+            <span class="status-dot"></span>
+            <span id="status-label">Not connected</span>
+          </div>
+
+          <details class="endpoint-settings">
+            <summary>Connection settings</summary>
+            <p>Use the API URLs from your deployed AWS stack.</p>
+            <label for="http-endpoint">HTTP API URL</label>
+            <input id="http-endpoint" type="url" placeholder="https://…execute-api…/Prod">
+            <label for="ws-endpoint">WebSocket URL</label>
+            <input id="ws-endpoint" type="url" placeholder="wss://…execute-api…/Prod">
+            <button id="save-settings" class="button button-secondary" type="button">Save endpoints</button>
+          </details>
+        </aside>
+
+        <section class="conversation" aria-label="Room messages">
+          <header class="conversation-header">
+            <div class="room-title">
+              <span class="room-hash">#</span>
+              <div>
+                <h2 id="active-room">the-lounge</h2>
+                <p id="room-subtitle">Join a room to start chatting</p>
+              </div>
+            </div>
+            <div class="live-indicator" id="live-indicator">
+              <span class="live-dot"></span> LIVE
+            </div>
+          </header>
+
+          <div class="message-list" id="message-list" role="log" aria-live="polite" aria-relevant="additions text">
+            <div class="empty-state" id="empty-state">
+              <div class="empty-illustration" aria-hidden="true">
+                <span class="bubble bubble-one"></span>
+                <span class="bubble bubble-two"></span>
+                <span class="bubble bubble-three">…</span>
+              </div>
+              <h3>Your conversation starts here</h3>
+              <p>Join a room and say hello. New messages appear instantly.</p>
+            </div>
+          </div>
+
+          <form id="message-form" class="message-composer">
+            <label class="sr-only" for="message-input">Write a message</label>
+            <input id="message-input" name="message" type="text" maxlength="2000" placeholder="Write a message…" autocomplete="off" disabled required>
+            <button class="send-button" type="submit" aria-label="Send message" disabled>
+              <span aria-hidden="true">↑</span>
+            </button>
+          </form>
+          <div class="composer-hint">Press <kbd>Enter</kbd> to send <span>·</span> Keep it kind.</div>
+        </section>
+      </section>
+
+      <footer class="page-footer">
+        <span>Made for the moments that matter.</span>
+        <span>Powered by AWS Lambda · API Gateway · DynamoDB</span>
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
